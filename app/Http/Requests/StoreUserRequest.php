@@ -16,7 +16,9 @@ class StoreUserRequest extends FormRequest
         return [
             'usuario' => 'required|string',
             'primerNombre' => 'required|string',
+            'segundoNombre' => 'nullable|string',
             'primerApellido' => 'required|string',
+            'segundoApellido' => 'nullable|string',
             'idDepartamento' => 'required|integer',
             'idCargo' => 'required|integer',
         ];

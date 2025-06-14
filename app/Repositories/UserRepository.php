@@ -34,7 +34,7 @@ class UserRepository
     {
         $user = User::find($id);
         if ($user) {
-            $user->delete();
+            $user->delete(); // Esto ahora hace soft delete
         }
         return $user;
     }

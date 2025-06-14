@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\ApiErrorHandler;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
@@ -34,8 +35,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
+
         try {
             $user = $this->users->create($request->validated());
             return response()->json($user, 201);
@@ -63,7 +65,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         try {
             $user = $this->users->update($id, $request->validated());
