@@ -12,6 +12,9 @@ class CargosSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \DB::table('cargos')->insert([
+            ['codigo' => 'CAR01', 'nombre' => 'Gerente', 'activo' => true, 'idUsuarioCreacion' => 1],
+            ['codigo' => 'CAR02', 'nombre' => 'Desarrollador', 'activo' => true, 'idUsuarioCreacion' => 1],
+        ]);
     }
 }

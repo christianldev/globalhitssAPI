@@ -12,6 +12,9 @@ class DepartamentosSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \DB::table('departamentos')->insert([
+            ['codigo' => 'DEP01', 'nombre' => 'Recursos Humanos', 'activo' => true, 'idUsuarioCreacion' => 1],
+            ['codigo' => 'DEP02', 'nombre' => 'TI', 'activo' => true, 'idUsuarioCreacion' => 1],
+        ]);
     }
 }

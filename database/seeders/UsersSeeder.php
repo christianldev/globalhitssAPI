@@ -12,6 +12,18 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \DB::table('users')->insert([
+            [
+                'usuario' => 'admin',
+                'primerNombre' => 'Administrador',
+                'segundoNombre' => 'Sistema',
+                'primerApellido' => 'Global',
+                'segundoApellido' => 'Hitss',
+                'idDepartamento' => 1,
+                'idCargo' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
