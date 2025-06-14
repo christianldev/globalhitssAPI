@@ -23,6 +23,7 @@ class UsersSeeder extends Seeder
                 'idCargo' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'email' => 'admin@globalhitss.com',
             ],
         ]);
     }

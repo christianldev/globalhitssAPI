@@ -19,6 +19,7 @@ class UpdateUserRequest extends FormRequest
             'primerApellido' => 'sometimes|string',
             'idDepartamento' => 'sometimes|integer',
             'idCargo' => 'sometimes|integer',
+            'email' => 'sometimes|email|unique:users,email,' . $this->route('user'),
         ];
     }
 }

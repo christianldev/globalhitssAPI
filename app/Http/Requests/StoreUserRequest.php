@@ -21,6 +21,7 @@ class StoreUserRequest extends FormRequest
             'segundoApellido' => 'nullable|string',
             'idDepartamento' => 'required|integer',
             'idCargo' => 'required|integer',
+            'email' => 'required|email|unique:users,email',
         ];
     }
 }
