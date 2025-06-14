@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
@@ -12,7 +13,8 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        //
+        $departamentos = Departamento::all();
+        return response()->json($departamentos);
     }
 
     /**

@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ApiErrorHandler;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 class UserController extends Controller
 {
+
+    protected $users;
+
+    public function __construct(UserRepository $users)
+    {
+        $this->users = $users;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return User::all();
+        try {
+            return response()->json($this->users->all());
+        } catch (\Throwable $e) {
+            return ApiErrorHandler::handle($e);
+        }
     }
 
     /**
@@ -21,8 +36,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        return response()->json($user, 201);
+        try {
+            $user = $this->users->create($request->validated());
+            return response()->json($user, 201);
+        } catch (\Throwable $e) {
+            return ApiErrorHandler::handle($e);
+        }
     }
 
     /**
@@ -30,7 +49,15 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return User::findOrFail($id);
+        try {
+            $user = $this->users->find($id);
+            if (!$user) {
+                throw new ModelNotFoundException();
+            }
+            return response()->json($user);
+        } catch (\Throwable $e) {
+            return ApiErrorHandler::handle($e);
+        }
     }
 
     /**
@@ -38,9 +65,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return response()->json($user, 200);
+        try {
+            $user = $this->users->update($id, $request->validated());
+            if (!$user) {
+                throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+            }
+            return response()->json($user);
+        } catch (\Throwable $e) {
+            return ApiErrorHandler::handle($e);
+        }
     }
 
     /**
@@ -48,7 +81,14 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        User::destroy($id);
-        return response()->json(null, 204);
+        try {
+            $user = $this->users->delete($id);
+            if (!$user) {
+                throw new ModelNotFoundException();
+            }
+            return response()->json(null, 204);
+        } catch (\Throwable $e) {
+            return ApiErrorHandler::handle($e);
+        }
     }
 }

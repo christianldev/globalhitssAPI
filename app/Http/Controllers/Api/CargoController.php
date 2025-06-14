@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cargo;
 use Illuminate\Http\Request;
 
 class CargoController extends Controller
@@ -12,7 +13,8 @@ class CargoController extends Controller
      */
     public function index()
     {
-        //
+        $cargos = Cargo::all();
+        return response()->json($cargos);
     }
 
     /**
